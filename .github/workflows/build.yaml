@@ -30,4 +30,5 @@ jobs:
 
       - name: Stop the application
         run: |
-          kill $(lsof -t -i:3000) # Stop the app by finding the process running on port 3000
+          pid=$(netstat -tuln | grep ':3000' | awk '{print $7}' | cut -d"/" -f1)
+          kill $pid || echo "Server not running"
