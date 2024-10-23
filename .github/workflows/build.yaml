@@ -1,14 +1,25 @@
 name: build
 
 on: push
+
 jobs: 
   build-nodes:
     runs-on: ubuntu-latest
-    container: node-16  
+    container:
+      image: node:16
     steps:
-      - run: node --version
-      - run: npm --version
-      - uses: actions/checkout@v4
-      - run: npm install
-      - run: node app.js
+      - name: Check out the code
+        uses: actions/checkout@v4
+      
+      - name: Verify Node.js and npm versions
+        run: |
+          node --version
+          npm --version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run the application
+        run: node app.js
+
       
