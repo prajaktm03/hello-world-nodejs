@@ -4,8 +4,8 @@ on: push
 
 jobs: 
   build-nodes:
-    #runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    #runs-on: self-hosted
     container:
       image: node:16
     steps:
