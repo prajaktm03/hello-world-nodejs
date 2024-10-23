@@ -19,7 +19,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run the application
-        run: node app.js
+      - name: Start the application in the background
+        run: |
+          nohup node app.js & # Start the app in the background
+          sleep 5 # Wait for a few seconds to ensure the server is up
 
-      
+      - name: Test server response
+        run: |
+          curl -f http://localhost:3000 || exit 1 # Check if the server is running and responding
+
+      - name: Stop the application
+        run: |
+          kill $(lsof -t -i:3000) # Stop the app by finding the process running on port 3000
